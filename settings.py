@@ -1,10 +1,10 @@
-START = "delete all messages in your group or channel."
+START = "grubunuzdaki veya kanalınızdaki tüm mesajları silin."
 
-HELP = "/delall - Delete All Messages"
+HELP = "/delall - TÜM MESAJLARI SİLİN"
 
-ABOUT = "A telegram bot to delete all messages in a group or channel"
+ABOUT = "Grup Veya Kanaldaki tüm mesajları silmek için oluşturduğumux telegram botu 🇹🇷"
 
-REPO = "DeleteAllBot"
+REPO = "@SancakBotlar"
 
 DATABASE_TABLES = ["users"]
 

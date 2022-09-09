@@ -5,7 +5,7 @@ from pystark import Stark, Message
 from pyrogram.errors import UserAlreadyParticipant, FloodWait
 
 
-@Stark.cmd('delall', description="Delete all messages in a group/channel")
+@Stark.cmd('temizle', description="GRUP VE KANALDAKİ TÜM MESAJLARI SİL")
 async def main_func(bot: Stark, msg: Message):
     if msg.chat.type == "private":
         return
@@ -14,18 +14,18 @@ async def main_func(bot: Stark, msg: Message):
         if user.status not in ['creator', 'administrator']:
             return
         if not user.can_delete_messages:
-            await msg.react("You don't have `CanDeleteMessages` right. Sorry!")
+            await msg.react(" bu yetkiye sahip değil`CanDeleteMessages`=mesaj silme!")
             return
     bot_id = (await bot.get_me()).id
     cm = await bot.get_chat_member(msg.chat.id, bot_id)
     if cm.status != "administrator":
-        await msg.react("I'm not admin here!")
+        await msg.react("Admin Değilim beni Admin yapın!")
         return
     elif not cm.can_promote_members:
-        await msg.react("I can't promote users here. I need that right to work.")
+        await msg.react("Kullanıcıları terfi ettiremiyorum . ÇALIŞMAK İÇİN BU YETKİYE İHTİYACIM VAR.")
         return
     elif not cm.can_delete_messages:
-        await msg.react("I can't delete messages here. I need that right to work.")
+        await msg.react("buradaki mesajları silemiyorum çalışmam için bu yetkiye ihtiyacım var.")
         return
     link = (await bot.get_chat(msg.chat.id)).invite_link
     try:
@@ -45,10 +45,10 @@ async def main_func(bot: Stark, msg: Message):
                 numbers.append(m.message_id)
             break
         except FloodWait as e:
-            await msg.react(f"You need to wait for: {e.x} seconds. \n\nTelegram Restrictions!")
+            await msg.react(f" beklemelisin : {e.x} saniye. \n\nTelegram Kısıtlamaları")
             await asyncio.sleep(e.x)
     id_lists = [numbers[i*100:(i+1)*100] for i in range((len(numbers)+100-1) // 100)]
-    status = await msg.reply("Trying to delete all messages...")
+    status = await msg.reply("Tüm Mesajları silmeye çalışıyorum...")
     for id_list in id_lists:
         while True:
             try:
@@ -57,6 +57,6 @@ async def main_func(bot: Stark, msg: Message):
             except FloodWait as e:
                 await asyncio.sleep(e.x)
                 Stark.log(str(e), logging.WARN)
-    await msg.react("Successful! Deleted Everything. For more bots visit @StarkBots")
-    await status.delete()
+    await msg.react("Başarılı! Her Şeyi Silindi. Daha fazla bot için @sancakbotlar'u ziyaret edin"")
+    await status.delete(
     await userbot.leave_chat(msg.chat.id)
